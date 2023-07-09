@@ -12,7 +12,7 @@ def get_long_description():
 
 
 with open(os.path.join(base_path, "cfscrape", "__init__.py")) as f:
-    VERSION = re.compile(r'.*__version__ = "(.*?)"', re.S).match(f.read()).group(1)
+    VERSION = re.compile(r'.*__version__ = "(.*?)"', re.S).match(f.read())[1]
 
 setup(
     name="cfscrape",

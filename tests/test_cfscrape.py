@@ -218,8 +218,6 @@ class TestCloudflareScraper:
 
         cfduid, cf_clearance = cloudflare_cookies()
 
-        # Use a class to workaround a `responses` bug where
-        # cookies aren't mocked correctly.
         class Test(cfscrape.CloudflareScraper):
             def __init__(self, *args, **kwargs):
                 kwargs.setdefault('delay', delay)
@@ -235,8 +233,8 @@ class TestCloudflareScraper:
         cookie_arg, user_agent = result
 
         cookie_arg.should.be.a('str')
-        cookie_arg.should.contain('cf_clearance=%s' % cf_clearance.value)
-        cookie_arg.should.contain('__cfduid=%s' % cfduid.value)
+        cookie_arg.should.contain(f'cf_clearance={cf_clearance.value}')
+        cookie_arg.should.contain(f'__cfduid={cfduid.value}')
 
         user_agent.should.equal(expected_ua)
 

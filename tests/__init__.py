@@ -135,9 +135,9 @@ def challenge_responses(filename, jschl_answer, redirect_to='/'):
 
             s = re.search(r'name="s"\svalue="(?P<s_value>[^"]+)', html)
             if s:
-                params['s'] = s.group('s_value')
-            params['jschl_vc'] = re.search(r'name="jschl_vc" value="(\w+)"', html).group(1)
-            params['pass'] = re.search(r'name="pass" value="(.+?)"', html).group(1)
+                params['s'] = s['s_value']
+            params['jschl_vc'] = re.search(r'name="jschl_vc" value="(\w+)"', html)[1]
+            params['pass'] = re.search(r'name="pass" value="(.+?)"', html)[1]
             params['jschl_answer'] = jschl_answer
 
             submit_uri = '{}/cdn-cgi/l/chk_jschl?{}'.format(url, urlencode(params))
@@ -153,6 +153,7 @@ def challenge_responses(filename, jschl_answer, redirect_to='/'):
             ))
 
             return test(self, **cfscrape_kwargs)
+
         return wrapper
 
     return challenge_responses_decorator
